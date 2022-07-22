@@ -1,0 +1,24 @@
+specVersion: 0.25.0
+name: metacontroller
+namespace: ""
+runtime: node
+registry: ""
+image: quay.io/lanceball/metacontroller:latest
+imageDigest: sha256:835cc539db9907b8d7612b06b7e745df68f756900000d825c4abe718375bd310
+build: local
+git: {}
+buildpacks: []
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels:
+- key: function-controller
+  value: "true"
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-07-22T13:16:01.981112-04:00
+invocation:
+  format: http

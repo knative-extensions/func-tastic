@@ -1,0 +1,21 @@
+apiVersion: metacontroller.k8s.io/v1alpha1
+kind: DecoratorController
+metadata:
+  name: function-trigger
+spec:
+  resources:
+  - apiVersion: serving.knative.dev/v1
+    resource: services
+    labelSelector:
+      matchLabels:
+        function.knative.dev: "true"
+  attachments:
+  - apiVersion: eventing.knative.dev/v1
+    resource: triggers
+    updateStrategy:
+      method: inPlace
+
+  hooks:
+    sync:
+      webhook:
+        url: http://metacontroller.default.svc.cluster.local
