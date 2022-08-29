@@ -1,0 +1,3 @@
+--index-url=https://pypi.anaconda.org/intel/simple --extra-index-url https://pypi.org/simple
+numpy==1.21.4
+parliament-functions==0.1.0
