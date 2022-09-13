@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/google/uuid"
 	"strings"
+
+	"github.com/google/uuid"
 
 	"github.com/cloudevents/sdk-go/v2/event"
 

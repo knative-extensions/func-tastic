@@ -47,7 +47,7 @@ func TestHandle(t *testing.T) {
 		t.Errorf("The output.Input: %v should be the same as the input.Input: %v", output.Input, inputOutput.Output)
 	}
 
-	if output.Output != inputOutput.Output + " improved!" {
-		t.Errorf("The output.Output: %v should be the same as the input.Input plus ' improved!': %v", output.Output, inputOutput.Output + " improved!")
+	if output.Output != inputOutput.Output+" improved!" {
+		t.Errorf("The output.Output: %v should be the same as the input.Input plus ' improved!': %v", output.Output, inputOutput.Output+" improved!")
 	}
 }
