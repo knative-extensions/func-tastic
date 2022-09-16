@@ -1,0 +1,23 @@
+specVersion: 0.25.0
+name: python-numpy
+namespace: default
+runtime: python
+registry: ""
+image: docker.io/daisyycguo/python-numpy:latest
+imageDigest: sha256:554345f2326f3b6dc104a337420f67cbe053cef20b12329f1b703c58f902cf1e
+build: local
+git: {}
+buildpacks: []
+builder: pack
+volumes: []
+buildEnvs: []
+envs: []
+annotations: {}
+options: {}
+labels: []
+healthEndpoints:
+  liveness: /health/liveness
+  readiness: /health/readiness
+created: 2022-08-15T14:24:55.545315116+08:00
+invocation:
+  format: http
