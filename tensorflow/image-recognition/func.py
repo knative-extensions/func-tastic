@@ -1,5 +1,4 @@
 import os
-from http.client import BAD_REQUEST
 from pathlib import Path
 import requests
 import image_recognition_service
@@ -64,7 +63,7 @@ def request_handler(req: Request, svc) -> str:
             }
             print(result, flush=True)
         except KeyError:
-            raise BAD_REQUEST(description='missing imgURL in JSON')
+            raise BadRequest(description='missing imgURL in JSON')
         except Exception as e:
             raise InternalServerError(original_exception=e)
         return json.dumps(result)

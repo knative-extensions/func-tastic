@@ -1,10 +1,10 @@
-specVersion: 0.34.0
+specVersion: 
 name: tensorflow-image-recognition
 runtime: python
 registry: docker.io/chzhyang
 image: docker.io/chzhyang/tensorflow-image-recognition:latest
 imageDigest: ""
-created: 2022-11-15T03:02:20.229105274Z
+created: 
 invocation:
   format: http
 build:
