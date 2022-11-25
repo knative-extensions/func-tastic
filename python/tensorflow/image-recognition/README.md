@@ -25,16 +25,35 @@ This function project includes three test functions in [unit test](./test_func.p
 ```bash
 $ python test_func.py
 ```
-## Build and run locally
 
+## Create funtion
 Requirements:
 - [func](https://github.com/knative/func) is installed
 
 ```bash
-$ cd .../func-tastic/tensorflow/image_recognition
-$ func build
+$ cd func-tastic/python
+$ func create -l python tensorflow/image-recognition
+$ cd tensorflow/image_recognition
+$ tree
+.
+└── image-recognition
+    ├── func.py
+    ├── func_test.py
+    ├── func.yaml
+    ├── Procfile
+    ├── README.md
+    └── requirements.txt
+```
+Then add the logic of request handler and image recgnition inference to:
+- `func.py`
+- `image_recognition_service.py`
+
+## Build and run locally
+
+```bash
+$ func build -i docker.io/chzhyang/tensorflow-image-recognition:latest
 $ func run
-  🙌 Function image built: docker.io/myrepo/tensorflow-image_recognition:latest
+  🙌 Function image built: docker.io/chzhyang/tensorflow-image-recognition:latest
 Detected function was already built.  Use --build to override this behavior.
 Function started on port 8080
 Load model...
@@ -66,15 +85,15 @@ $ curl -X POST http://127.0.0.1:8080 \
 ```
 
 
-## Deploy funtion into Knative cluster
+## Deploy function into Knative cluster
 
 Requirements:
 - [func](https://github.com/knative/func) is installed
 - [Knative](https://knative.dev/docs/) is installed
 
 ```bash
-$ func deploy --registry <registry>
-    🙌 Function image built: <registry>/tensorflow-image-recognition:latest
+$ func deploy -i docker.io/chzhyang/tensorflow-image-recognition:latest
+    🙌 Function image built: docker.io/chzhyang/tensorflow-image-recognition:latest
     ✅ Function deployed in namespace "default" and exposed at URL:
     http://tensorflow-image-recognition.default.example.com
 ```
