@@ -26,32 +26,43 @@ This function project includes three test functions in [unit test](./test_func.p
 $ python test_func.py
 ```
 
-## Create funtion
+## Create function
 Requirements:
 - [func](https://github.com/knative/func) is installed
 
 ```bash
-$ cd func-tastic/python
-$ func create -l python tensorflow/image-recognition
-$ cd tensorflow/image_recognition
-$ tree
-.
-└── image-recognition
-    ├── func.py
-    ├── func_test.py
-    ├── func.yaml
-    ├── Procfile
-    ├── README.md
-    └── requirements.txt
+$ func repo add functastic https://github.com/knative-sandbox/func-tastic
+$ cd functastic/python
+$ func create -l python -t http tensorfow-image-recognition
+$ cd tensorflow-image-recognition
 ```
-Then add the logic of request handler and image recgnition inference to:
-- `func.py`
-- `image_recognition_service.py`
+
+Then add the logic: 
+- add request handler to `func.py`
+- add image recognition inference to `image_recognition_service.py`
+- add pretrained model and label list to `./data`
+
+
+```bash
+$ tree .
+.
+├── Procfile
+├── README.md
+├── data
+    ├── labellist.json
+    ├── resnet50_v1_5_fp32.pb
+    └── test.JPEG
+├── func.py
+├── func.yaml
+├── image_recognition_service.py
+├── requirements.txt
+└── test_func.py
+```
 
 ## Build and run locally
 
 ```bash
-$ func build -i docker.io/chzhyang/tensorflow-image-recognition:latest
+$ func build -r docker.io/chzhyang
 $ func run
   🙌 Function image built: docker.io/chzhyang/tensorflow-image-recognition:latest
 Detected function was already built.  Use --build to override this behavior.
@@ -92,7 +103,7 @@ Requirements:
 - [Knative](https://knative.dev/docs/) is installed
 
 ```bash
-$ func deploy -i docker.io/chzhyang/tensorflow-image-recognition:latest
+$ func deploy
     🙌 Function image built: docker.io/chzhyang/tensorflow-image-recognition:latest
     ✅ Function deployed in namespace "default" and exposed at URL:
     http://tensorflow-image-recognition.default.example.com
@@ -103,5 +114,5 @@ $ func deploy -i docker.io/chzhyang/tensorflow-image-recognition:latest
 To remove the deployed function from your cluster, run:
 
 ```bash
-func delete
+$ func delete
 ```

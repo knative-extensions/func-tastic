@@ -24,6 +24,9 @@ _B_MEAN = 103.94
 CHANNEL_MEANS = [_R_MEAN, _G_MEAN, _B_MEAN]
 RESIZE_MIN = 256
 
+# Flag to optimize model for inference, beter performance but cost long time
+OPTIMIZE_MODEL = False
+
 
 class ImageRecognitionService():
     """
@@ -39,6 +42,7 @@ class ImageRecognitionService():
         """Config TensorFlow configuration settings, then load a pretrained model and cache it"""
         self.model_path = model_path
         self._optimized_config()
+        self.optimize_model = OPTIMIZE_MODEL
         self.infer_graph, self.infer_sess = self._load_model()
         self.input_tensor = self.infer_graph.get_tensor_by_name(INPUT_TENSOR)
         self.output_tensor = self.infer_graph.get_tensor_by_name(OUTPUT_TENSOR)
@@ -75,11 +79,13 @@ class ImageRecognitionService():
             with tf.compat.v1.gfile.FastGFile(self.model_path, 'rb') as input_file:
                 input_graph_content = input_file.read()
                 graph_def.ParseFromString(input_graph_content)
-
-            # Optimize the model for inference
-            output_graph = optimize_for_inference(
-                graph_def, [INPUTS], [OUTPUTS], dtypes.float32.as_datatype_enum, False)
-            tf.import_graph_def(output_graph, name='')
+            if self.optimize_model:
+                # Optimize the model for inference
+                output_graph = optimize_for_inference(
+                    graph_def, [INPUTS], [OUTPUTS], dtypes.float32.as_datatype_enum, False)
+                tf.import_graph_def(output_graph, name='')
+            else:
+                tf.import_graph_def(graph_def, name='')
         infer_sess = tf.compat.v1.Session(graph=infer_graph)
 
         return infer_graph, infer_sess
