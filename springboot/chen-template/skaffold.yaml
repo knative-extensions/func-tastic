@@ -1,0 +1,13 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  tagPolicy:
+    envTemplate:
+      template: "{{.IMAGE_NAME}}:{{.DIGEST_HEX}}"
+  artifacts:
+  - imageName: 665986443982.dkr.ecr.ap-northeast-1.amazonaws.com/k8s-skaffold/chen-template
+  local:
+deploy:
+  kubectl:
+    manifests:
+      - k8s-*% 
